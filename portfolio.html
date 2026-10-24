@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharjeel Ã¢â‚¬â€ Web Developer & Tech Teacher</title>
+    <style>
+        .photo-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 1.25rem; }
+        .photo-gallery figure { margin: 0; padding: .65rem; border: 1px solid var(--border-color); border-radius: 6px; background: var(--card-bg); }
+        .photo-gallery img { display: block; width: 100%; height: 220px; object-fit: contain; background: #f7f6f2; border-radius: 4px; }
+        .photo-gallery figcaption { padding-top: .55rem; color: var(--text-secondary); font-size: .85rem; }
+        :root {
+            --bg-color: #f7f6f2;
+            --card-bg: #ffffff;
+            --text-primary: #1a1918;
+            --text-secondary: #666460;
+            --border-color: #e3e1da;
+            --highlight: #b85d19;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+            animation: fadeInPage 0.8s ease-out;
+        }
+
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Header / Navbar */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+            border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            transition: transform 0.3s ease;
+        }
+
+        header:hover {
+            transform: translateY(-2px);
+        }
+
+        .logo {
+            font-family: monospace;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: -0.5px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            margin-left: 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s, transform 0.2s;
+            display: inline-block;
+        }
+
+        nav a:hover {
+            color: var(--highlight);
+            transform: translateY(-1px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 4rem 3rem;
+            margin-bottom: 2rem;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            animation: slideUp 0.8s ease-out;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .hero:hover {
+            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .profile-img-container {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--border-color);
+            background: var(--bg-color);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+        }
+
+        .profile-img-container:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 8px 25px rgba(184, 93, 25, 0.2);
+            border-color: var(--highlight);
+        }
+
+        .profile-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .profile-img-container:hover img {
+            transform: scale(1.1);
+        }
+
+        .badge {
+            display: inline-block;
+            font-family: monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.35rem 0.75rem;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+            color: var(--highlight);
+            font-weight: 500;
+        }
+
+        h1 {
+            font-size: 3.2rem;
+            line-height: 1.1;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 2px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--text-primary);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background: var(--highlight);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(184, 93, 25, 0.25);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-primary);
+            transform: translateY(-2px);
+            background: rgba(0,0,0,0.02);
+        }
+
+        /* Grid Section */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 2.5rem;
+            border-radius: 4px;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+            border-color: #d1cfc7;
+        }
+
+        .card h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Skills Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            font-family: monospace;
+            font-size: 0.8rem;
+            padding: 0.4rem 0.8rem;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.25s ease;
+        }
+
+        .tag:hover {
+            border-color: var(--highlight);
+            color: var(--highlight);
+            transform: translateY(-2px);
+            background: #ffffff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+        }
+
+        /* Project / Item List */
+        .project-item {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            transition: padding-left 0.3s ease;
+        }
+
+        .project-item:hover {
+            padding-left: 6px;
+            border-color: var(--highlight);
+        }
+
+        .project-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .project-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .project-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--highlight);
+            box-shadow: 0 0 0 3px rgba(184, 93, 25, 0.1);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-family: monospace;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            border-radius: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+                padding: 2.5rem 1.5rem;
+            }
+            .cta-group {
+                justify-content: center;
+            }
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 2.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">SHARJEEL.DEV</div>
+            <nav>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#academic">Academic</a>
+                <a href="#certifications">Certifications</a>
+                <a href="#mun-achievements">MUN</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <span class="badge">Available for Teaching & Freelance Projects</span>
+                <h1>Hi, I'm Sharjeel</h1>
+                <div class="hero-subtitle">Web Developer, Problem Solver, Tech Teacher, Public Speaker & Munner</div>
+                <p>Based in Karachi, Pakistan. Passionate about software development, teaching with deep conceptual clarity, and building clean digital experiences.</p>
+                <div class="cta-group">
+                    <a href="#contact" class="btn btn-primary">Let's Build Together +</a>
+                    <a href="mailto:hafizsharjeel04@gmail.com" class="btn btn-secondary">Direct Email</a>
+                </div>
+            </div>
+            <div class="profile-img-container">
+                <img src="profile-photo.jpg" alt="Sharjeel Professional Photo">
+            </div>
+        </section>
+
+        <!-- About & Skills Grid -->
+        <div class="grid-2">
+            <div class="card" id="about">
+                <h2>About Me</h2>
+                <p>I am a dedicated BSCS student, Web Developer, Problem Solver, and Tech Teacher based in Karachi. I love turning complex logic into simple solutions.</p>
+                <p>As a Public Speaker and Munner, I enjoy sharing knowledge, mentoring peers, and tackling real-world industry challenges.</p>
+            </div>
+
+            <div class="card" id="skills">
+                <h2>Core Tech Stack & Skills</h2>
+                <p>Languages, frameworks, and professional competencies I work with.</p>
+                <div class="tags">
+                    <span class="tag">C</span>
+                    <span class="tag">C++</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">HTML</span>
+                    <span class="tag">CSS</span>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">React</span>
+                    <span class="tag">Git & GitHub</span>
+                    <span class="tag">Graphic Designer</span>
+                    <span class="tag">Problem Solver</span>
+                    <span class="tag">Tech Teacher</span>
+                    <span class="tag">Public Speaker</span>
+                    <span class="tag">Munner</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Academic Achievements Section -->
+        <div class="card" id="academic" style="margin-bottom: 2rem;">
+            <h2>Academic Achievements</h2>
+            <p>Educational background, qualifications, and core milestones.</p>
+            
+            <div class="project-item">
+                <div class="project-title">BSCS Student at GU Tech</div>
+                <div class="project-desc">Currently pursuing Bachelor of Science in Computer Science (BSCS) with a focus on advanced problem solving and software development.</div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-title">Hafiz-e-Quran</div>
+                <div class="project-desc">Completed Hifz-e-Quran with dedication and discipline.</div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-title">Intermediate & Matriculation</div>
+                <div class="project-desc">Completed intermediate education from Sindh Board of Intermediate and matriculation from Sindh Board of Matriculation.</div>
+            </div>
+        </div>
+
+        <!-- Professional Certifications Section -->
+        <div class="card" id="certifications" style="margin-bottom: 2rem;">
+            <h2>Professional Certifications & Courses</h2>
+            <p>Technical trainings, programming certifications, and skill development courses.</p>
+            
+            <div class="project-item">
+                <div class="project-title">
+                    NED Academy (CCEE) - Software Engineering & Java Programming
+                </div>
+                <div class="project-desc">3-Month Professional Certification completed from June 29, 2025 to October 05, 2025. Covering Software Engineering, Java, OOP, JavaFX, and Databases.</div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-title">
+                    HA Education - Certificate of CIT (Grade A)
+                </div>
+                <div class="project-desc">Successfully completed Certificate in Information Technology (CIT) at Hussainabad Centre with Grade A (Affiliated with Sindh Board of Technical Education).</div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-title">
+                    HA Education - Certificate of Digital Graphics (Grade A)
+                </div>
+                <div class="project-desc">Successfully completed Digital Graphics course with Grade A at Hussainabad Centre (Affiliated with Sindh Board of Technical Education).</div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-title">
+                    Arena Multimedia - Photoshop Post Certificate of Merit
+                </div>
+                <div class="project-desc">Certificate of Merit for Photoshop Post training at Arena Defence (Issued October 11, 2021).</div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-title">
+                    Aptech Learning - WordPress Compact Course
+                </div>
+                <div class="project-desc">Certificate of Excellence for participating in compact course on WordPress at Aptech Gulshan-e-Iqbal Center.</div>
+            </div>
+        </div>
+
+        <!-- MUN Achievements Section -->
+        <div class="card" id="mun-achievements" style="margin-bottom: 2rem;">
+            <h2>MUN Achievements & Participation</h2>
+            <p>Model United Nations conferences, diplomatic awards, and certificates.</p>
+            
+            <div class="project-item">
+                <div class="project-title">
+                    Future Diplomats Model United Nations V (FDMUN V)
+                </div>
+                <div class="project-desc">
+                    Best Delegate Award & Certificate of Appreciation at DHA Suffa University, Karachi (25th - 27th September 2026).
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-title">
+                    Titan Model United Nations II
+                </div>
+                <div class="project-desc">
+                    Outstanding Diplomat / Award of Excellence (KCC).
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-title">
+                    National Aiwaan Conference (HExIS 2026)
+                </div>
+                <div class="project-desc">Certificate of Honorable Mention & Participation in PNA Committee.</div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-title">
+                    Iqra University Model United Nations (IUMUN)
+                </div>
+                <div class="project-desc">Certificate of Participation in Majlis-e-Taqseem-e-Bar-e-Sagheer.</div>
+            </div>
+        </div>
+
+        <!-- Contact / Project Inquiry & Comments Section -->
+        <div class="card" id="photo-gallery" style="margin-bottom: 2rem;">
+            <h2>Certificates & Awards Gallery</h2>
+            <p>A selection of my certificates, MUN achievements, and awards.</p>
+            <div class="photo-gallery">
+                <figure><img src="mun-participation-certificate.jpeg" alt="MUN participation certificate"><figcaption>MUN Participation</figcaption></figure>
+                <figure><img src="program-certificate.jpeg" alt="Certificate"><figcaption>Additional Certificate</figcaption></figure>
+                <figure><img src="outstanding-diplomat-certificate.jpeg" alt="Outstanding Diplomat certificate"><figcaption>Outstanding Diplomat</figcaption></figure>
+                <figure><img src="mun-certificate.jpeg" alt="Model United Nations certificate"><figcaption>MUN Certificate</figcaption></figure>
+                <figure><img src="digital-graphics-certificate.jpeg" alt="Digital Graphics course certificate"><figcaption>Digital Graphics</figcaption></figure>
+                <figure><img src="cit-certificate.jpeg" alt="Certificate in Information Technology"><figcaption>Certificate in IT</figcaption></figure>
+                <figure><img src="training-certificate.jpeg" alt="Training certificate"><figcaption>Training Certificate</figcaption></figure>
+                <figure><img src="photoshop-merit-certificate.jpeg" alt="Photoshop certificate of merit"><figcaption>Photoshop Merit</figcaption></figure>
+                <figure><img src="certificate-of-appreciation.jpeg" alt="Certificate of appreciation"><figcaption>Certificate of Appreciation</figcaption></figure>
+                <figure><img src="academic-certificate.jpeg" alt="Academic certificate"><figcaption>Academic Certificate</figcaption></figure>
+                <figure><img src="degree-certificate.jpeg" alt="Program completion certificate"><figcaption>Program Certificate</figcaption></figure>
+                <figure><img src="fdmun-best-delegate-award.jpeg" alt="FDMUN Best Delegate award"><figcaption>FDMUN Best Delegate Award</figcaption></figure>
+                <figure><img src="titan-mun-award.jpeg" alt="Titan MUN award"><figcaption>Titan MUN Award</figcaption></figure>
+            </div>
+        </div>
+        <div class="card" id="contact" style="margin-bottom: 2rem;">
+            <h2>Let's Build a Project Together / Leave a Comment</h2>
+            <p>Have a project in mind or feedback to share? Complete the form below to get in touch.</p>
+            
+            <form action="mailto:hafizsharjeel04@gmail.com" method="POST" enctype="text/plain">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" class="form-control" required placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" class="form-control" required placeholder="name@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="message">Project Detail / Comment</label>
+                    <textarea id="message" name="message" class="form-control" required placeholder="Enter your message or project idea..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message / Comment</button>
+            </form>
+
+            <div style="margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+                <p style="margin-bottom: 1rem; font-weight: 600;">Direct Links & Contact Number:</p>
+                <div class="tags">
+                    <a href="mailto:hafizsharjeel04@gmail.com" class="tag">Email: hafizsharjeel04@gmail.com</a>
+                    <a href="https://linkedin.com" target="_blank" class="tag">LinkedIn Profile</a>
+                    <a href="https://github.com" target="_blank" class="tag">GitHub Profile</a>
+                    <span class="tag">Phone: +92 3XX XXXXXXX</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            &copy; 2026 Sharjeel. Built with clean HTML & CSS.
+        </footer>
+    </div>
+
+</body>
+</html>
