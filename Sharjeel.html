@@ -153,8 +153,8 @@
         }
 
         .profile-img-container {
-            width: 150px;
-            height: 150px;
+            width: 190px;
+            height: 190px;
             border-radius: 50%;
             overflow: hidden;
             border: 2px solid var(--border-color);
@@ -366,6 +366,55 @@
             font-size: 0.9rem;
         }
 
+        /* Portfolio projects */
+        .projects-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .project-card {
+            display: flex;
+            flex-direction: column;
+            min-height: 185px;
+            padding: 1.25rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: var(--bg-color);
+        }
+
+        .project-card h3 { font-size: 1.1rem; margin-bottom: .5rem; }
+        .project-card p { margin-bottom: 1rem; }
+        .project-card .tags { margin-top: auto; }
+        .project-card-actions { display: flex; gap: 1rem; margin-top: 1rem; }
+        .project-card-actions a, .project-card-actions button {
+            color: var(--highlight);
+            border: 0;
+            background: none;
+            font: inherit;
+            font-size: .85rem;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .project-card-actions button { color: var(--text-secondary); }
+
+        .project-form {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .project-form[hidden] { display: none; }
+        .project-form textarea.form-control { min-height: 90px; }
+        .project-storage-note { font-size: .82rem !important; margin: .75rem 0 0 !important; }
+
         /* Form Styling */
         .form-group {
             margin-bottom: 1.25rem;
@@ -444,6 +493,7 @@
             <nav>
                 <a href="#about">About</a>
                 <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
                 <a href="#academic">Academic</a>
                 <a href="#certifications">Certifications</a>
                 <a href="#mun-achievements">MUN</a>
@@ -496,6 +546,43 @@
                 </div>
             </div>
         </div>
+
+        <!-- Projects Section: add/edit projects from this browser -->
+        <section class="card" id="projects" style="margin-bottom: 2rem;">
+            <div class="projects-heading">
+                <div>
+                    <h2>Projects</h2>
+                    <p>Selected work, experiments, and things I’ve built.</p>
+                </div>
+                <button class="btn btn-secondary" id="toggle-project-form" type="button" aria-expanded="false" aria-controls="project-form">+ Add Project</button>
+            </div>
+            <div class="projects-grid" id="project-list" aria-live="polite"></div>
+            <form class="project-form" id="project-form" hidden>
+                <h3 style="margin-bottom: 1rem;">Add a project</h3>
+                <div class="form-group">
+                    <label for="project-name">Project name</label>
+                    <input class="form-control" id="project-name" name="name" required maxlength="80" placeholder="e.g. Personal Portfolio">
+                </div>
+                <div class="form-group">
+                    <label for="project-description">Description</label>
+                    <textarea class="form-control" id="project-description" name="description" required maxlength="400" placeholder="What does it do? What did you build it with?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="project-link">Project link (optional)</label>
+                    <input class="form-control" id="project-link" name="link" type="url" placeholder="https://example.com">
+                </div>
+                <div class="form-group">
+                    <label for="project-github">Code repository link (optional)</label>
+                    <input class="form-control" id="project-github" name="github" type="url" placeholder="https://github.com/username/project">
+                </div>
+                <div class="form-group">
+                    <label for="project-tech">Technologies (optional, comma separated)</label>
+                    <input class="form-control" id="project-tech" name="tech" maxlength="120" placeholder="HTML, CSS, JavaScript">
+                </div>
+                <button class="btn btn-primary" type="submit">Save Project</button>
+                <p class="project-storage-note">Projects are saved in this browser on this device. To show them to every website visitor, add them to the site and publish the updated files.</p>
+            </form>
+        </section>
 
         <!-- Academic Achievements Section -->
         <div class="card" id="academic" style="margin-bottom: 2rem;">
@@ -665,5 +752,174 @@
         </footer>
     </div>
 
+<script>
+    (() => {
+        const storageKey = 'sharjeel-portfolio-projects';
+        const projectList = document.getElementById('project-list');
+        const projectForm = document.getElementById('project-form');
+        const toggleButton = document.getElementById('toggle-project-form');
+        const resumeProjects = [
+            {
+                name: 'Personal Portfolio Website 1',
+                description: 'Built a personal portfolio to showcase technical skills, projects, and professional information. Created with AI-assisted development tools.',
+                link: 'https://portfolio-one-eta-49.vercel.app/',
+                github: 'https://github.com/hafizsharjeel04-pixel/Portfolio',
+                tech: ['Portfolio', 'Web Development']
+            },
+            {
+                name: 'Personal Portfolio Website 2',
+                description: 'Designed and developed a second portfolio website focused on visual presentation, website structure, and user experience, exploring AI-assisted development techniques.',
+                link: 'https://sharjeelportfolio-theta.vercel.app/',
+                github: 'https://github.com/hafizsharjeel04-pixel/Sharjeel_Portfolio_Website',
+                tech: ['Portfolio', 'UI Design', 'Web Development']
+            },
+            {
+                name: 'Sleep Study Quest — Digital Well-Being',
+                description: 'Worked on a digital well-being project focused on sleep-related awareness and user needs. Applied design thinking through problem identification, ideation, prototyping, and feedback.',
+                link: 'https://digitalwellbeing-sigma.vercel.app/',
+                github: 'https://github.com/hafizsharjeel04-pixel/Digital-Well-Being',
+                tech: ['Digital Well-Being', 'Design Thinking', 'Prototyping']
+            },
+            {
+                name: 'JPMC OPD & Emergency Registration System',
+                description: 'Developed a browser-based prototype demonstrating outpatient and emergency registration workflows for a hospital management interface using HTML, CSS, and JavaScript.',
+                link: 'https://government-hostpital-management.vercel.app/',
+                github: 'https://github.com/hafizsharjeel04-pixel?tab=repositories',
+                tech: ['HTML', 'CSS', 'JavaScript']
+            }
+        ];
+
+        const readProjects = () => {
+            try {
+                const projects = JSON.parse(localStorage.getItem(storageKey) || '[]');
+                return Array.isArray(projects) ? projects : [];
+            } catch {
+                return [];
+            }
+        };
+
+        if (!localStorage.getItem(storageKey)) {
+            localStorage.setItem(storageKey, JSON.stringify(resumeProjects));
+        } else {
+            const savedProjects = readProjects();
+            const resumeNames = new Set(resumeProjects.map((project) => project.name));
+            const synchronizedResumeProjects = resumeProjects.map((resumeProject) => {
+                const savedProject = savedProjects.find((project) => project.name === resumeProject.name);
+                return savedProject
+                    ? { ...savedProject, link: resumeProject.link || savedProject.link, github: resumeProject.github || savedProject.github }
+                    : resumeProject;
+            });
+            const customProjects = savedProjects.filter((project) => !resumeNames.has(project.name));
+            const synchronizedProjects = [...synchronizedResumeProjects, ...customProjects];
+            if (JSON.stringify(synchronizedProjects) !== JSON.stringify(savedProjects)) {
+                localStorage.setItem(storageKey, JSON.stringify(synchronizedProjects));
+            }
+        }
+
+        const renderProjects = () => {
+            const projects = readProjects();
+            projectList.replaceChildren();
+            if (!projects.length) {
+                const empty = document.createElement('p');
+                empty.textContent = 'No projects added yet. Use “Add Project” to showcase your work.';
+                projectList.append(empty);
+                return;
+            }
+
+            projects.forEach((project, index) => {
+                const card = document.createElement('article');
+                card.className = 'project-card';
+                const title = document.createElement('h3');
+                title.textContent = project.name;
+                const description = document.createElement('p');
+                description.textContent = project.description;
+                card.append(title, description);
+
+                if (project.tech.length) {
+                    const tags = document.createElement('div');
+                    tags.className = 'tags';
+                    project.tech.forEach((technology) => {
+                        const tag = document.createElement('span');
+                        tag.className = 'tag';
+                        tag.textContent = technology;
+                        tags.append(tag);
+                    });
+                    card.append(tags);
+                }
+
+                const actions = document.createElement('div');
+                actions.className = 'project-card-actions';
+                [[project.link, 'Live site ↗'], [project.github, 'View Code ↗']].forEach(([url, label]) => {
+                    if (!url) return;
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.target = '_blank';
+                    link.rel = 'noopener noreferrer';
+                    link.textContent = label;
+                    actions.append(link);
+                });
+                const remove = document.createElement('button');
+                remove.type = 'button';
+                remove.textContent = 'Remove';
+                remove.setAttribute('aria-label', `Remove ${project.name}`);
+                remove.addEventListener('click', () => {
+                    const updated = readProjects();
+                    updated.splice(index, 1);
+                    localStorage.setItem(storageKey, JSON.stringify(updated));
+                    renderProjects();
+                });
+                actions.append(remove);
+                card.append(actions);
+                projectList.append(card);
+            });
+        };
+
+        toggleButton.addEventListener('click', () => {
+            const isOpening = projectForm.hidden;
+            projectForm.hidden = !isOpening;
+            toggleButton.setAttribute('aria-expanded', String(isOpening));
+            toggleButton.textContent = isOpening ? 'Cancel' : '+ Add Project';
+            if (isOpening) document.getElementById('project-name').focus();
+        });
+
+        projectForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const values = new FormData(projectForm);
+            const rawLink = String(values.get('link') || '').trim();
+            let safeLink = '';
+            if (rawLink) {
+                try {
+                    const parsed = new URL(rawLink);
+                    if (parsed.protocol === 'https:' || parsed.protocol === 'http:') safeLink = parsed.href;
+                } catch { /* Ignore an invalid optional link. */ }
+            }
+            const rawGithub = String(values.get('github') || '').trim();
+            let safeGithub = '';
+            if (rawGithub) {
+                try {
+                    const parsed = new URL(rawGithub);
+                    if (parsed.protocol === 'https:' || parsed.protocol === 'http:') safeGithub = parsed.href;
+                } catch { /* Ignore an invalid optional repository link. */ }
+            }
+            const project = {
+                name: String(values.get('name')).trim(),
+                description: String(values.get('description')).trim(),
+                link: safeLink,
+                github: safeGithub,
+                tech: String(values.get('tech') || '').split(',').map((item) => item.trim()).filter(Boolean)
+            };
+            const projects = readProjects();
+            projects.unshift(project);
+            localStorage.setItem(storageKey, JSON.stringify(projects));
+            projectForm.reset();
+            projectForm.hidden = true;
+            toggleButton.setAttribute('aria-expanded', 'false');
+            toggleButton.textContent = '+ Add Project';
+            renderProjects();
+        });
+
+        renderProjects();
+    })();
+</script>
 </body>
 </html>
